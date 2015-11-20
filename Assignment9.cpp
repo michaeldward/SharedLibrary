@@ -4,48 +4,8 @@
 #include <iomanip>
 #include <sstream>
 #include <cmath>
-
-int fibonacci(int num) { //calculates the specified fibonacci number
-	if (num == 0) { //if number entered is 0
-		return 0;
-	}
-	long num1 = 0, num2 = 1;
-	for (int i = 0; i < num - 1; ++i) {
-		int temp = num2;
-		num2 += num1;
-		num1 = temp;
-	}
-	return num2;
-}
-
-int factorial(int num) { //calculates the factorial of the number specified
-	int result = num;
-	for (int i = num - 1; i > 0; --i) {
-		result *= i;
-	}
-	return result;
-}
-
-double findE(int num) { //finds e to the specified precision using the Taylor series
-	double result = 1;
-	for (int i = 1; i < num; ++i) { 
-		result += 1.0 / factorial(i);
-	}
-	return result;
-}
-
-long double findPi(int num) { //computes pi to the specified precision using the Nilakantha series
-	int denominator = 2;
-	long double result = 3;
-	for (int i = 0; i < 10000; ++i) {
-		result += 4.0 / (denominator*(denominator + 1)*(denominator + 2));
-		denominator += 2;
-		result -= 4.0 / (denominator*(denominator + 1)*(denominator + 2));
-		denominator += 2;
-	}
-	result = roundf(result * powf(10, num)) / powf(10, num);
-	return result;
-}
+#include <cstdlib>
+#include <dlfcn.h>
 
 std::string errorFib() { //if incorrect value is entered for fibonacci calculation
 	return "Please enter a number between 0 and 14.";
@@ -95,37 +55,93 @@ std::string showHelp() { //if incorrect command is entered
 	return "--- Assign 1 Help ---\n\n-fib [n] Compute the fibonacci of [n]\n\n-e [n] Compute the value of 'e' using [n] iterations\n\n-pi [n] Compute Pi to [n] digits";
 }
 
-std::string userInput() { //handles user input and determines calculation
-	char prompt[256];
-	std::cin.getline(prompt, 256);
-	if (prompt[0] == '-') {
-		if (prompt[1] == 'f') { //checks if prompt is fib
-			if (prompt[2] == 'i') {
-				if (prompt[3] == 'b') {
-					return fibInput(prompt);
+int userInput(char prompt[]) { //handles user input and determines calculation
+	int number = 0;
+	if (prompt[0] == 'f') { //checks if prompt is fib
+		if (prompt[1] == 'i') {
+			if (prompt[2] == 'b') {	
+				if (std::isdigit(prompt[5])) {
+					number = std::stoi(prompt[4]) * 10 + std::stoi(prompt[5]);
 				}
-			}
-		}
-		else if (prompt[1] == 'e') { //checks if prompt is e
-			return eInput(prompt);
-		}
-		else if (prompt[1] == 'p') { //checks if prompt is pi
-			if (prompt[2] == 'i') {
-				return piInput(prompt);
+				else {
+					number = std::stoi(prompt[4]);
+				}
+				return fibInput(number);
 			}
 		}
 	}
-	return showHelp(); //if input is not correct
+	else if (prompt[0] == 'e') { //checks if prompt is e
+		if (std::isdigit(prompt[3])) {
+			number = std::stoi(prompt[2]) * 10 + std::stoi(prompt[3]);
+		}
+		else {
+			number = std::stoi(prompt[2]);
+		}
+		return eInput(number);
+	}
+	else if (prompt[0] == 'p') { //checks if prompt is pi
+		if (prompt[1] == 'i') {
+			if (std::isdigit(prompt[4])) {
+				number = std::stoi(prompt[3]) * 10 + std::stoi(prompt[4]);
+			}
+			else {
+				number = std::stoi(prompt[3]);
+			}
+			return piInput(number);
+		}
+	}
+	return -1; //if input is not correct
+}
+
+bool checkQuit(prompt[]) {
+	if(prompt[0] == 'q') {
+		if (prompt[1] == 'u') {
+			if (prompt[2] == 'i') {
+				if (prompt[3] == 't') {
+					return true; //user entered 'quit'
+				}
+			}
+		}
+	}
+	return false; //user didn't enter 'quit'
 }
 
 int main() {
-	void* handle = dlopen("./DemoLib.so", RTLD_LAZY);
+	bool done = false;
+	void* handle = dlopen("./Library.so", RTLD_LAZY);
 	if (!handle)
 	{
 		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
 		exit(1);
 	}
-	while (true) {
-		std::cout << userInput() << std::endl;
+	double (*fibInput)(int) = (double(*)(int))dlsym(handle, "fibInput");
+	if (dlerror() != NULL)
+	{
+		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
+		exit(1);
+	}
+
+	double (*eInput)(int, double) = (double(*)(int, double))dlsym(handle, "eInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
+	double (*piInput)(int, double) = (double(*)(int, double))dlsym(handle, "piInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
+	while (!done) {
+		char prompt[256];
+		std::cout << "[cmd:] " << std::endl;
+		std::cin.getline(prompt, 256);
+		if(checkQuit) {
+			done = true;
+		}
+		else {
+			std::cout << userInput(prompt) << std::endl;
+		}
 	}
 }
