@@ -1,10 +1,3 @@
-extern "C" int fibInput(int num) { //handles user input for fibonacci calculation
-	if (num < 15 && num >= 0) {
-		return fibonacci(num);
-	}
-	return -1; //if user enters incorrect value
-}
-
 int fibonacci(int num) { //calculates the specified fibonacci number
 	if (num == 0) { //if number entered is 0
 		return 0;
@@ -18,11 +11,19 @@ int fibonacci(int num) { //calculates the specified fibonacci number
 	return num2;
 }
 
-extern "C" double eInput(int num) { //handles user input for e calculation
-		if (num > 0 && num < 31) {
-			return findE(num);
-		}
+extern "C" int fibInput(int num) { //handles user input for fibonacci calculation
+	if (num < 15 && num >= 0) {
+		return fibonacci(num);
+	}
 	return -1; //if user enters incorrect value
+}
+
+int factorial(int num) { //calculates the factorial of the number specified
+	int result = num;
+	for (int i = num - 1; i > 0; --i) {
+		result *= i;
+	}
+	return result;
 }
 
 double findE(int num) { //finds e to the specified precision using the Taylor series
@@ -33,13 +34,13 @@ double findE(int num) { //finds e to the specified precision using the Taylor se
 	return result;
 }
 
-int factorial(int num) { //calculates the factorial of the number specified
-	int result = num;
-	for (int i = num - 1; i > 0; --i) {
-		result *= i;
-	}
-	return result;
+extern "C" double eInput(int num) { //handles user input for e calculation
+		if (num > 0 && num < 31) {
+			return findE(num);
+		}
+	return -1; //if user enters incorrect value
 }
+
 
 extern "C" double piInput(int prompt) { //handles user input for pi calculation
 	if (num > 0 && num < 11) {
