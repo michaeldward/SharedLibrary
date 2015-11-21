@@ -42,13 +42,6 @@ extern "C" double eInput(int num) { //handles user input for e calculation
 	return -1; //if user enters incorrect value
 }
 
-extern "C" double piInput(int prompt) { //handles user input for pi calculation
-	if (num > 0 && num < 11) {
-		return findPi(num);
-	}
-	return -1; //if user enters incorrect value
-}
-
 long double findPi(int num) { //computes pi to the specified precision using the Nilakantha series
 	int denominator = 2;
 	long double result = 3;
@@ -60,4 +53,11 @@ long double findPi(int num) { //computes pi to the specified precision using the
 	}
 	result = roundf(result * powf(10, num)) / powf(10, num);
 	return result;
+}
+
+extern "C" double piInput(int num) { //handles user input for pi calculation
+	if (num > 0 && num < 11) {
+		return findPi(num);
+	}
+	return -1; //if user enters incorrect value
 }
