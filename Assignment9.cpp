@@ -16,7 +16,7 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 	if (prompt[0] == 'f') { //checks if prompt is fib
 		if (prompt[1] == 'i') {
 			if (prompt[2] == 'b') {	
-				if (std::isdigit(&prompt[5])) {
+				if (std::isdigit(prompt[5])) {
 					number = std::stoi(&prompt[4]) * 10 + std::stoi(&prompt[5]);
 				}
 				else {
@@ -27,7 +27,7 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 		}
 	}
 	else if (prompt[0] == 'e') { //checks if prompt is e
-		if (std::isdigit(&prompt[3])) {
+		if (std::isdigit(prompt[3])) {
 			number = std::stoi(&prompt[2]) * 10 + std::stoi(&prompt[3]);
 		}
 		else {
@@ -37,7 +37,7 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 	}
 	else if (prompt[0] == 'p') { //checks if prompt is pi
 		if (prompt[1] == 'i') {
-			if (std::isdigit(&prompt[4])) {
+			if (std::isdigit(prompt[4])) {
 				number = std::stoi(&prompt[3]) * 10 + std::stoi(&prompt[4]);
 			}
 			else {
