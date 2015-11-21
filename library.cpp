@@ -19,8 +19,8 @@ extern "C" int fibInput(int num) { //handles user input for fibonacci calculatio
 	return -1; //if user enters incorrect value
 }
 
-int factorial(int num) { //calculates the factorial of the number specified
-	int result = num;
+double factorial(int num) { //calculates the factorial of the number specified
+	double result = num;
 	for (int i = num - 1; i > 0; --i) {
 		result *= i;
 	}

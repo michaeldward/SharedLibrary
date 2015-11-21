@@ -42,7 +42,7 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 		if (prompt[1] == 'i') {
 			if (prompt[2] == 'b') {	
 				if (std::isdigit(prompt[5])) {
-					number = std::stoi(&prompt[4]) * 10 + std::stoi(&prompt[5]);
+					number = (std::stoi(&prompt[4]) * 10) + std::stoi(&prompt[5]);
 				}
 				else {
 					number = std::stoi(&prompt[4]);
