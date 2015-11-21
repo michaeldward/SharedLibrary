@@ -7,69 +7,9 @@
 #include <cstdlib>
 #include <dlfcn.h>
 
-std::string showHelp();
-bool checkQuit(char prompt[]);
-int userInput(char prompt[]);
-
-int main() {
-	bool done = false;
-	void* handle = dlopen("./library.so", RTLD_LAZY);
-	if (!handle)
-	{
-		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
-		exit(1);
-	}
-	int (*fibInput)(int) = (double(*)(int))dlsym(handle, "fibInput");
-	if (dlerror() != NULL)
-	{
-		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
-		exit(1);
-	}
-
-	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
-	if (dlerror() != NULL)
-	{
-	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
-	  exit(1);
-	}
-	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
-	if (dlerror() != NULL)
-	{
-	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
-	  exit(1);
-	}
-	while (!done) {
-		char prompt[256];
-		std::cout << "[cmd:] " << std::endl;
-		std::cin.getline(prompt, 256);
-		if(checkQuit) {
-			done = true;
-		}
-		else {
-			std::cout << userInput(prompt) << std::endl;
-		}
-	}
-}
-
 std::string showHelp() { //if incorrect command is entered
 	return "--- Assign 1 Help ---\n\n-fib [n] Compute the fibonacci of [n]\n\n-e [n] Compute the value of 'e' using [n] iterations\n\n-pi [n] Compute Pi to [n] digits";
 }
-
-
-
-bool checkQuit(char prompt[]) {
-	if(prompt[0] == 'q') {
-		if (prompt[1] == 'u') {
-			if (prompt[2] == 'i') {
-				if (prompt[3] == 't') {
-					return true; //user entered 'quit'
-				}
-			}
-		}
-	}
-	return false; //user didn't enter 'quit'
-}
-
 
 int userInput(char prompt[]) { //handles user input and determines calculation
 	int number = 0;
@@ -107,4 +47,58 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 		}
 	}
 	return -1; //if input is not correct
+}
+
+bool checkQuit(char prompt[]) {
+	if(prompt[0] == 'q') {
+		if (prompt[1] == 'u') {
+			if (prompt[2] == 'i') {
+				if (prompt[3] == 't') {
+					return true; //user entered 'quit'
+				}
+			}
+		}
+	}
+	return false; //user didn't enter 'quit'
+}
+
+int main() {
+	bool done = false;
+	void* handle = dlopen("./library.so", RTLD_LAZY);
+	if (!handle)
+	{
+		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
+		exit(1);
+	}
+	int (*fibInput)(int) = (int(*)(int))dlsym(handle, "fibInput");
+	if (dlerror() != NULL)
+	{
+		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
+		exit(1);
+	}
+
+	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
+	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
+	while (!done) {
+		char prompt[256];
+		std::cout << "[cmd:] " << std::endl;
+		std::cin.getline(prompt, 256);
+		if(checkQuit) {
+			done = true;
+		}
+		else {
+			std::cout << userInput(prompt) << std::endl;
+			fibInput(5);
+		}
+	}
 }
