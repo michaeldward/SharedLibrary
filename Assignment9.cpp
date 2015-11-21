@@ -64,7 +64,7 @@ bool checkQuit(char prompt[]) {
 
 int main() {
 	bool done = false;
-	void* handle = dlopen("./library.so", RTLD_LAZY);
+	void* handle = dlopen("./library.so", RTLD_LAZY, RTLD_GLOBAL);
 	if (!handle)
 	{
 		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
@@ -98,7 +98,6 @@ int main() {
 		}
 		else {
 			std::cout << userInput(prompt) << std::endl;
-			fibInput(5);
 		}
 	}
 }
