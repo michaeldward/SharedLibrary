@@ -7,50 +7,6 @@
 #include <cstdlib>
 #include <dlfcn.h>
 
-std::string errorFib() { //if incorrect value is entered for fibonacci calculation
-	return "Please enter a number between 0 and 14.";
-}
-
-std::string errorPi() { //if incorrect value is entered for pi calculation
-	return "Please enter a number between 1 and 10.";
-}
-
-std::string errorE() { //if incorrect value is entered for e calculation
-	return "Please enter a number between 1 and 30.";
-}
-
-std::string fibInput(char* prompt) { //handles user input for fibonacci calculation
-	if (isblank(prompt[4])) {
-		if (isdigit(prompt[5])) {
-			int num = std::stoi(&prompt[5]);
-			if (num < 15 && num >= 0) {
-				return std::to_string(fibonacci(num));
-			}
-		}
-	}
-	return errorFib(); //if user enters incorrect value
-}
-
-std::string eInput(char* prompt) { //handles user input for e calculation
-	if (isdigit(prompt[3])) {
-		int num = std::stoi(&prompt[3]);
-		if (num > 0 && num < 31) {
-			return std::to_string(findE(num));
-		}
-	}
-	return errorE(); //if user enters incorrect value
-}
-
-std::string piInput(char* prompt) { //handles user input for pi calculation
-	if (isdigit(prompt[4])) {
-		int num = std::stoi(&prompt[4]);
-		if (num > 0 && num < 11) {
-			return std::to_string(findPi(num));
-		}
-	}
-	return errorPi(); //if user enters incorrect value
-}
-
 std::string showHelp() { //if incorrect command is entered
 	return "--- Assign 1 Help ---\n\n-fib [n] Compute the fibonacci of [n]\n\n-e [n] Compute the value of 'e' using [n] iterations\n\n-pi [n] Compute Pi to [n] digits";
 }
