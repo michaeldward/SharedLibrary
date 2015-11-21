@@ -12,7 +12,7 @@ int fibonacci(int num) { //calculates the specified fibonacci number
 	return num2;
 }
 
-extern "C" int fibInput(int num) { //handles user input for fibonacci calculation
+extern "C" int fibCalc(int num) { //handles user input for fibonacci calculation
 	if (num < 15 && num >= 0) {
 		return fibonacci(num);
 	}
@@ -35,7 +35,7 @@ double findE(int num) { //finds e to the specified precision using the Taylor se
 	return result;
 }
 
-extern "C" double eInput(int num) { //handles user input for e calculation
+extern "C" double eCalc(int num) { //handles user input for e calculation
 		if (num > 0 && num < 31) {
 			return findE(num);
 		}
@@ -55,7 +55,7 @@ long double findPi(int num) { //computes pi to the specified precision using the
 	return result;
 }
 
-extern "C" double piInput(int num) { //handles user input for pi calculation
+extern "C" double piCalc(int num) { //handles user input for pi calculation
 	if (num > 0 && num < 11) {
 		return findPi(num);
 	}

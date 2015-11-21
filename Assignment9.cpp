@@ -19,23 +19,23 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
 		exit(1);
 	}
-	int (*fibInput)(int) = (int(*)(int))dlsym(handle, "fibInput");
+	int (*fibCalc)(int) = (int(*)(int))dlsym(handle, "fibCalc");
 	if (dlerror() != NULL)
 	{
-		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
+		std::cout << "Couldn't find 'fibCalc', error: " << dlerror() << std::endl;
 		exit(1);
 	}
 
-	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
+	double (*eCalc)(int) = (double(*)(int))dlsym(handle, "eCalc");
 	if (dlerror() != NULL)
 	{
-	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
+	  std::cout << "Couldn't find 'eCalc', error: " << dlerror() << std::endl;
 	  exit(1);
 	}
-	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
+	double (*piCalc)(int) = (double(*)(int))dlsym(handle, "piCalc");
 	if (dlerror() != NULL)
 	{
-	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
+	  std::cout << "Couldn't find 'piCalc', error: " << dlerror() << std::endl;
 	  exit(1);
 	}
 	int number = 0;
@@ -44,7 +44,7 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 			if (prompt[2] == 'b') {
 				if (std::isdigit(prompt[4])) {
 					number = std::stoi(&prompt[4]);
-					double fibReturn = fibInput(number);
+					double fibReturn = fibCalc(number);
 					if (fibReturn == -1) { //number out of bounds
 						std::cout << "Please enter a number between 1 and 14.\n";
 					}
@@ -56,9 +56,9 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 	else if (prompt[0] == 'e') { //checks if prompt is e
 		if (std::isdigit(prompt[2])) {
 			number = std::stoi(&prompt[2]);
-			double eReturn = eInput(number);
+			double eReturn = eCalc(number);
 			if (eReturn == -1) { //number out of bounds
-				std::cout << "Please enter a number between 1 and 14.\n";
+				std::cout << "Please enter a number between 1 and 30.\n";
 			}
 			return eReturn;
 		}
@@ -67,9 +67,9 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 		if (prompt[1] == 'i') {
 			if (std::isdigit(prompt[3])) {
 				number = std::stoi(&prompt[3]);
-				double piReturn = piInput(number);
+				double piReturn = piCalc(number);
 				if (piReturn == -1) { //number out of bounds
-					std::cout << "Please enter a number between 1 and 14.\n";
+					std::cout << "Please enter a number between 1 and 10.\n";
 				}
 				return piReturn;
 			}	
