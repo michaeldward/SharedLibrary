@@ -70,20 +70,20 @@ int main() {
 		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
 		exit(1);
 	}
-	double (*fibInput)(int) = (double(*)(int))dlsym(handle, "fibInput");
+	int (*fibInput)(int) = (double(*)(int))dlsym(handle, "fibInput");
 	if (dlerror() != NULL)
 	{
 		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
 		exit(1);
 	}
 
-	double (*eInput)(int, double) = (double(*)(int, double))dlsym(handle, "eInput");
+	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
 	if (dlerror() != NULL)
 	{
 	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
 	  exit(1);
 	}
-	double (*piInput)(int, double) = (double(*)(int, double))dlsym(handle, "piInput");
+	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
 	if (dlerror() != NULL)
 	{
 	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
