@@ -1,3 +1,4 @@
+#include <cmath>
 int fibonacci(int num) { //calculates the specified fibonacci number
 	if (num == 0) { //if number entered is 0
 		return 0;
@@ -40,7 +41,6 @@ extern "C" double eInput(int num) { //handles user input for e calculation
 		}
 	return -1; //if user enters incorrect value
 }
-
 
 extern "C" double piInput(int prompt) { //handles user input for pi calculation
 	if (num > 0 && num < 11) {
