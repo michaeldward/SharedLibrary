@@ -92,8 +92,8 @@ int main() {
 	while (!done) {
 		char prompt[256];
 		std::cout << "[cmd:] ";
-		std::cin.getline(prompt, 256);
-		if(checkQuit) {
+		std::cin.getline(prompt, 255);
+		if(checkQuit(prompt)) {
 			done = true;
 			std::cout << "I WILL QUIT";
 		}
