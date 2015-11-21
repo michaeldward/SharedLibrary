@@ -40,9 +40,11 @@ int userInput(char prompt[]) { //handles user input and determines calculation
 	int number = 0;
 	if (prompt[0] == 'f') { //checks if prompt is fib
 		if (prompt[1] == 'i') {
-			if (prompt[2] == 'b') {	
-				number = std::stoi(&prompt[4]);
-				return fibInput(number);
+			if (prompt[2] == 'b') {
+				if (std::isdigit(prompt[4])) {
+					number = std::stoi(&prompt[4]);
+					return fibInput(number);
+				}
 			}
 		}
 	}
