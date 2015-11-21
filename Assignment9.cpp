@@ -12,6 +12,31 @@ std::string showHelp() { //if incorrect command is entered
 }
 
 int userInput(char prompt[]) { //handles user input and determines calculation
+	void* handle = dlopen("./library.so", RTLD_LAZY);
+	if (!handle)
+	{
+		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
+		exit(1);
+	}
+	int (*fibInput)(int) = (int(*)(int))dlsym(handle, "fibInput");
+	if (dlerror() != NULL)
+	{
+		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
+		exit(1);
+	}
+
+	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
+	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
+	if (dlerror() != NULL)
+	{
+	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
+	  exit(1);
+	}
 	int number = 0;
 	if (prompt[0] == 'f') { //checks if prompt is fib
 		if (prompt[1] == 'i') {
@@ -64,31 +89,6 @@ bool checkQuit(char prompt[]) {
 
 int main() {
 	bool done = false;
-	void* handle = dlopen("./library.so", RTLD_GLOBAL);
-	if (!handle)
-	{
-		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;
-		exit(1);
-	}
-	int (*fibInput)(int) = (int(*)(int))dlsym(handle, "fibInput");
-	if (dlerror() != NULL)
-	{
-		std::cout << "Couldn't find 'fibInput', error: " << dlerror() << std::endl;
-		exit(1);
-	}
-
-	double (*eInput)(int) = (double(*)(int))dlsym(handle, "eInput");
-	if (dlerror() != NULL)
-	{
-	  std::cout << "Couldn't find 'eInput', error: " << dlerror() << std::endl;
-	  exit(1);
-	}
-	double (*piInput)(int) = (double(*)(int))dlsym(handle, "piInput");
-	if (dlerror() != NULL)
-	{
-	  std::cout << "Couldn't find 'piInput', error: " << dlerror() << std::endl;
-	  exit(1);
-	}
 	while (!done) {
 		char prompt[256];
 		std::cout << "[cmd:] " << std::endl;
