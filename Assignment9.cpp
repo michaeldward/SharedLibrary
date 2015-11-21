@@ -43,8 +43,8 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 		if (prompt[1] == 'i') {
 			if (prompt[2] == 'b') {
 				if (std::isdigit(prompt[4])) {
-					double number = std::stoi(&prompt[4]);
-					fibReturn = fibInput(number);
+					number = std::stoi(&prompt[4]);
+					double fibReturn = fibInput(number);
 					if (fibReturn == -1) { //number out of bounds
 						std::cout << "Please enter a number between 1 and 14.\n";
 					}
@@ -55,7 +55,7 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 	}
 	else if (prompt[0] == 'e') { //checks if prompt is e
 		if (std::isdigit(prompt[2])) {
-			double number = std::stoi(&prompt[2]);
+			number = std::stoi(&prompt[2]);
 			double eReturn = eInput(number);
 			if (eReturn == -1) { //number out of bounds
 				std::cout << "Please enter a number between 1 and 14.\n";
@@ -67,7 +67,7 @@ double userInput(char prompt[]) { //handles user input and determines calculatio
 		if (prompt[1] == 'i') {
 			if (std::isdigit(prompt[3])) {
 				number = std::stoi(&prompt[3]);
-				piReturn = piInput(number);
+				double piReturn = piInput(number);
 				if (piReturn == -1) { //number out of bounds
 					std::cout << "Please enter a number between 1 and 14.\n";
 				}
@@ -111,4 +111,3 @@ int main() {
 		}
 	}
 }
-//
