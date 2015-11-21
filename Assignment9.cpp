@@ -108,7 +108,7 @@ bool checkQuit(prompt[]) {
 
 int main() {
 	bool done = false;
-	void* handle = dlopen("./Library.so", RTLD_LAZY);
+	void* handle = dlopen("./library.so", RTLD_LAZY);
 	if (!handle)
 	{
 		std::cout << "Couldn't open the shared library, error: " << dlerror() << std::endl;

@@ -1,5 +1,4 @@
-extern "C" int fibInput(int prompt) { //handles user input for fibonacci calculation
-	int num = std::stoi(&prompt[5]);
+extern "C" int fibInput(int num) { //handles user input for fibonacci calculation
 	if (num < 15 && num >= 0) {
 		return fibonacci(num);
 	}
@@ -19,11 +18,10 @@ int fibonacci(int num) { //calculates the specified fibonacci number
 	return num2;
 }
 
-extern "C" double eInput(int prompt) { //handles user input for e calculation
+extern "C" double eInput(int num) { //handles user input for e calculation
 		if (num > 0 && num < 31) {
 			return findE(num);
 		}
-	}
 	return -1; //if user enters incorrect value
 }
 
