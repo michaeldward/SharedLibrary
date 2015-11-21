@@ -6,7 +6,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <dlfcn.h>
-#include <iomanip>
 
 std::string showHelp() { //if incorrect command is entered
 	return "--- Assign 9 Help ---\n\n-fib [n] Compute the fibonacci of [n]\n\n-e [n] Compute the value of 'e' using [n] iterations\n\n-pi [n] Compute Pi to [n] digits";
@@ -107,7 +106,7 @@ int main() {
 				std::cout << showHelp() << std::endl;
 			}
 			else if (userReturn != -1) { //-1 if number out of bounds
-				std::cout << std::setprecision(10) << userReturn << std::endl;
+				std::cout << userReturn << std::endl;
 			}
 		}
 	}
