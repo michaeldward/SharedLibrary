@@ -11,7 +11,7 @@ std::string showHelp() { //if incorrect command is entered
 	return "--- Assign 1 Help ---\n\n-fib [n] Compute the fibonacci of [n]\n\n-e [n] Compute the value of 'e' using [n] iterations\n\n-pi [n] Compute Pi to [n] digits";
 }
 
-int userInput(char prompt[]) { //handles user input and determines calculation
+double userInput(char prompt[]) { //handles user input and determines calculation
 	void* handle = dlopen("./library.so", RTLD_LAZY);
 	if (!handle)
 	{
